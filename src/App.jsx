@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import HTMLFlipBook from 'react-pageflip'
 import narracaoP1 from './assets/narracao_p1.m4a'
 import FlipPage from './components/book/FlipPage'
@@ -7,6 +7,13 @@ import NarrationPage from './components/book/pages/NarrationPage'
 import ContentPage01 from './components/book/pages/ContentPage01'
 import ContentPage02 from './components/book/pages/ContentPage02'
 import ContentPage03 from './components/book/pages/ContentPage03'
+import ContentPage04 from './components/book/pages/ContentPage04'
+import ContentPage05 from './components/book/pages/ContentPage05'
+import ContentPage06 from './components/book/pages/ContentPage06'
+import ContentPage07 from './components/book/pages/ContentPage07'
+import ContentPage08 from './components/book/pages/ContentPage08'
+import ContentPage09 from './components/book/pages/ContentPage09'
+
 
 const pageSequence = [
   { key: 'page-01', Component: CoverPage },
@@ -16,16 +23,62 @@ const pageSequence = [
   { key: 'page-05', Component: ContentPage02 },
   { key: 'page-06', Component: NarrationPage },
   { key: 'page-07', Component: ContentPage03 },
+  { key: 'page-08', Component: NarrationPage },
+  { key: 'page-09', Component: ContentPage04 },
+  { key: 'page-10', Component: NarrationPage },
+  { key: 'page-11', Component: ContentPage05 },
+  { key: 'page-12', Component: NarrationPage },
+  { key: 'page-13', Component: ContentPage06 },
+  { key: 'page-14', Component: NarrationPage },
+  { key: 'page-15', Component: ContentPage07 },
+  { key: 'page-16', Component: NarrationPage },
+  { key: 'page-17', Component: ContentPage08 },
+  { key: 'page-18', Component: NarrationPage },
+  { key: 'page-19', Component: ContentPage09 },
 ]
 
 const narrationByPage = {
   2: narracaoP1,
 }
 
+const PAGE_ASPECT_RATIO = 720 / 1024
+const MIN_PAGE_WIDTH = 320
+const MAX_PAGE_WIDTH = 540
+
+function getBookSize() {
+  const availableWidth = window.innerWidth - 32
+  const availableHeight = window.innerHeight - 32
+
+  const widthFromViewport = availableWidth / 2
+  const widthFromHeight = availableHeight * PAGE_ASPECT_RATIO
+  const pageWidth = Math.min(
+    MAX_PAGE_WIDTH,
+    Math.max(MIN_PAGE_WIDTH, Math.floor(Math.min(widthFromViewport, widthFromHeight))),
+  )
+
+  return {
+    width: pageWidth,
+    height: Math.floor(pageWidth / PAGE_ASPECT_RATIO),
+  }
+}
+
 function App() {
   const flipBookRef = useRef(null)
   const audioRef = useRef(null)
   const currentPageRef = useRef(1)
+  const [bookSize, setBookSize] = useState(() => getBookSize())
+
+  useEffect(() => {
+    function onResize() {
+      setBookSize(getBookSize())
+    }
+
+    window.addEventListener('resize', onResize)
+
+    return () => {
+      window.removeEventListener('resize', onResize)
+    }
+  }, [])
 
   const playNarrationForPage = useCallback(
     (pageNumber) => {
@@ -102,6 +155,14 @@ function App() {
     }
   }, [])
 
+  const flipBookStyle = useMemo(
+    () => ({
+      width: `${bookSize.width}px`,
+      height: `${bookSize.height}px`,
+    }),
+    [bookSize.height, bookSize.width],
+  )
+
   function handleFlip(event) {
     if (typeof event?.data !== 'number') {
       return
@@ -119,13 +180,9 @@ function App() {
       >
         <HTMLFlipBook
           ref={flipBookRef}
-          width={720}
-          height={1024}
-          size="stretch"
-          minWidth={420}
-          maxWidth={960}
-          minHeight={600}
-          maxHeight={1360}
+          width={bookSize.width}
+          height={bookSize.height}
+          style={flipBookStyle}
           maxShadowOpacity={0.32}
           showCover={true}
           mobileScrollSupport={true}

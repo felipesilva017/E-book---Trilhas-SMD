@@ -1,14 +1,14 @@
 import { BrowserBar, InnerLine, PageBadge } from '../VisualAccents'
 import PageFrame from '../PageFrame'
-import image1 from '../../../assets/c-language.PNG'
-import image2 from '../../../assets/js-language.PNG'
+import image1 from '../../../assets/unity.PNG'
+import image2 from '../../../assets/unreal.PNG'
 
 
 
-function ContentPage03() {
+function ContentPage05() {
   return (
     <PageFrame
-      ariaLabel="Pagina de conteudo 3"
+      ariaLabel="Pagina de conteudo 5"
       className="bg-[radial-gradient(circle_at_86%_18%,rgba(255,128,0,0.2),transparent_40%),radial-gradient(circle_at_14%_86%,rgba(0,193,144,0.18),transparent_46%),#fcfbf7]"
     >
       <BrowserBar />
@@ -16,19 +16,18 @@ function ContentPage03() {
 
       <div className="relative z-20 flex h-[calc(100%-58px)] flex-col gap-3 px-[52px] pb-[92px] pt-[58px] max-lg:px-[26px] max-lg:pb-[76px] max-lg:pt-[42px]">
         <h2 className="mb-4 font-display text-[clamp(1rem,1.5vw,1.3rem)] leading-[1.06] text-[#0d120c]">
-            Sistemas Multimídia
-            (A Fundação Lógica)
+            Jogos Digitais (A Criação de Mundos)
           </h2>
         <p className="m-0 max-w-[38ch] text-[clamp(0.95rem,1.5vw,1.02rem)] leading-[1.55] text-[#293015] text-justify">
-          <strong>Objetivo:</strong> Capacitar a analisar requisitos, projetar, implementar, testar, implantar, avaliar e manter sistemas computacionais.
+          <strong>Objetivo:</strong> Apresentar uma visão integrada do desenvolvimento de jogos e aplicações interativas.
         </p>
 
         <p className="m-0 max-w-[38ch] text-[clamp(0.95rem,1.5vw,1.02rem)] leading-[1.55] text-[#293015] text-justify">
-          <strong>Foco:</strong> Representação múltipla da informação (imagens, vídeos e som) em mídias interativas.
+          <strong>Foco:</strong> Uma perspectiva multirreferencial que contempla computação, arte e cultura.
         </p>
 
         <p className="m-0 max-w-[38ch] text-[clamp(0.95rem,1.5vw,1.02rem)] leading-[1.55] text-[#293015] text-justify">
-          <strong>Disciplinas Chave:</strong> Programação Orientada a Objetos, Programação Web, Dispositivos Móveis, Computação Física e Sistemas Embarcados.
+          <strong>Disciplinas Chave:</strong> Design de Jogos, Prototipação de Jogos Tridimensionais, Programação de Jogos e Inteligência Computacional Aplicada a Jogos.
         </p>
 
         <div className="mt-2 grid max-w-[420px] gap-3 sm:grid-cols-2">
@@ -55,9 +54,9 @@ function ContentPage03() {
           Passe a mão no sensor para esquerda ou direita para virar.
         </small>
       </footer>
-      <PageBadge>Pagina 3</PageBadge>
+      <PageBadge>Pagina 5</PageBadge>
     </PageFrame>
   )
 }
 
-export default ContentPage03
+export default ContentPage05

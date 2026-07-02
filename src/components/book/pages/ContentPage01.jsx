@@ -1,4 +1,4 @@
-import { BrowserBar, InnerLine, PageBadge, StarAccent } from '../VisualAccents'
+import { BrowserBar, InnerLine, PageBadge } from '../VisualAccents'
 import PageFrame from '../PageFrame'
 
 function ContentPage01() {
@@ -9,7 +9,6 @@ function ContentPage01() {
     >
       <BrowserBar />
       <InnerLine />
-      <StarAccent />
 
       <div className="relative z-20 flex h-[calc(80%-58px)] flex-col justify-center gap-6 px-[52px] pb-[136px] max-lg:px-[26px] max-lg:pb-[124px] max-lg:pt-[42px]">
         <div className="flex w-full max-w-[72ch] flex-col gap-4">

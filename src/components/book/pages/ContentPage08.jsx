@@ -1,13 +1,13 @@
-import image1 from '../../../assets/sistema-operacional.PNG'
-import image2 from '../../../assets/algoritmo.PNG'
-import image3 from '../../../assets/programacao.PNG'
+import image1 from '../../../assets/estudio-de-filmagem.PNG'
+import image2 from '../../../assets/fotografo.PNG'
+import image3 from '../../../assets/animacao.PNG'
 import { BrowserBar, InnerLine, PageBadge } from '../VisualAccents'
 import PageFrame from '../PageFrame'
 
-function ContentPage02() {
+function ContentPage08() {
   return (
     <PageFrame
-      ariaLabel="Pagina de conteudo 2"
+      ariaLabel="Pagina de conteudo 8"
       className="bg-[radial-gradient(circle_at_86%_18%,rgba(255,128,0,0.2),transparent_40%),radial-gradient(circle_at_14%_86%,rgba(0,193,144,0.18),transparent_46%),#fcfbf7]"
     >
       <BrowserBar />
@@ -16,15 +16,14 @@ function ContentPage02() {
       <div className="relative z-20 flex h-[calc(100%-58px)] flex-col gap-6 px-[52px] pb-[136px] pt-[58px] max-lg:px-[26px] max-lg:pb-[124px] max-lg:pt-[42px]">
         <div className="max-w-[68ch]">
           <h2 className="m-0 font-display text-[clamp(1rem,1.5vw,1.3rem)] leading-[1.06] text-[#0d120c]">
-            Sistemas Multimídia
-            (A Fundação Lógica)
+            Animação e Audiovisual (O Movimento e a Narrativa)
           </h2>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="flex flex-col gap-3 lg:pr-6">
             <p className="m-0 max-w-[46ch] text-[clamp(0.95rem,1.5vw,1.02rem)] leading-[1.6] text-[#293015] text-justify">
-              Tudo começa na estrutura. Na trilha de Sistemas Multimídia, as ideias ganham corpo através do código. Aqui, você aprende a arquitetar, implementar e testar sistemas que integram áudio, vídeo e interatividade. É a engenharia por trás da experiência digital, dando vida a softwares, aplicativos móveis e conexões físicas.
+              Dar vida ao estático, contar histórias através da luz e do som. A trilha de Animação e Audiovisual transforma tecnologia em pura expressão cultural. Do frame a frame da animação tradicional ao rigor técnico da modelagem e do rigging em três dimensões, você aprende a dominar o tempo, o movimento e a narrativa visual para capturar a imaginação do espectador.
             </p>
           </div>
 
@@ -61,9 +60,9 @@ function ContentPage02() {
           Passe a mão no sensor para esquerda ou direita para virar.
         </small>
       </footer>
-      <PageBadge>Pagina 2</PageBadge>
+      <PageBadge>Pagina 8</PageBadge>
     </PageFrame>
   )
 }
 
-export default ContentPage02
+export default ContentPage08
