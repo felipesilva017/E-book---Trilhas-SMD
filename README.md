@@ -22,7 +22,13 @@ Uma aplicação web interativa e elegante para leitura de e-books com efeito de 
 - **Suporte a Touch**: Gestos de toque total em dispositivos móveis
 - **Navegação Responsiva**: Funcionamento perfeito em diferentes tamanhos de tela
 
-### 🎨 Design Responsivo
+### � Controle por Gestos com Arduino e Processing
+- **Sensor de Gestos**: Integração com sensor Adafruit APDS9960 via Arduino para detecção de movimentos
+- **Comunicação Serial**: Arduino comunica-se com o PC via porta serial (COM12, 115200 baud)
+- **Middleware Processing**: Aplicação Processing recebe sinais do Arduino e os converte em comandos de teclado
+- **Experiência Hands-Free**: Navegue no e-book apenas com gestos no ar (cima, baixo, esquerda, direita)
+
+### �🎨 Design Responsivo
 - **Adaptativo**: A aplicação se ajusta automaticamente ao tamanho da janela
 - **Otimizado para Desktop e Mobile**: Experiência consistente em todos os dispositivos
 - **Layout Centralizado**: Apresentação elegante em qualquer resolução
@@ -101,8 +107,77 @@ ebook/
 ├── public/                               # Arquivos estáticos públicos
 ├── package.json                          # Configuração do projeto
 ├── vite.config.js                        # Configuração do Vite
-└── eslint.config.js                      # Configuração do ESLint
+├── eslint.config.js                      # Configuração do ESLint
+├── processing/
+│   └── middleware.java                   # Middleware Processing para comunicação com Arduino
+└── arduino/
+    └── hardware_arduino.ino              # Código para microcontrolador Arduino com sensor de gestos
 ```
+
+## 🔌 Integração Arduino + Processing
+
+### Visão Geral da Arquitetura
+
+O projeto integra hardware e software para permitir **navegação por gestos sem contato**:
+
+```
+Sensor APDS9960 → Arduino → Serial COM12 → Processing → Simula Teclas → E-book React
+```
+
+### 🤖 Arduino (hardware_arduino.ino)
+
+Código responsável por capturar gestos via sensor e transmitir para o computador:
+
+- **Hardware**: Arduino com sensor Adafruit APDS9960
+- **Sensor**: Detecta movimentos em 4 direções
+  - 👆 UP: Gesto para cima
+  - 👇 DOWN: Gesto para baixo
+  - 👈 LEFT: Gesto para esquerda
+  - 👉 RIGHT: Gesto para direita
+- **Comunicação**: Serial a 115200 baud
+- **Funcionalidade**: 
+  - Inicializa sensor de proximidade e detecção de gestos
+  - Lê continuamente movimentos detectados
+  - Envia comando de gesto via porta serial
+
+### ⚙️ Processing (middleware.java)
+
+Aplicação intermediária que recebe sinais do Arduino e controla o teclado:
+
+- **Comunicação Serial**: Conecta à porta COM12 e aguarda comandos
+- **Conversão de Sinais**: Transforma comandos de gestos em simulated key presses
+- **Mapeamento de Teclas**:
+  - LEFT → Seta Esquerda
+  - RIGHT → Seta Direita
+  - UP → Seta Para Cima
+  - DOWN → Seta Para Baixo
+- **Interface**: Simples display informando que está aguardando gestos
+- **Automação**: Usa `java.awt.Robot` para simular pressionamento de teclas
+
+### 🔧 Como Configurar
+
+#### Pré-requisitos
+- Arduino IDE instalado
+- Processing IDE instalado
+- Biblioteca Adafruit APDS9960 (instale via Arduino IDE)
+- Placa Arduino com sensor APDS9960
+
+#### Passos
+1. Carregue `arduino/hardware_arduino.ino` no Arduino
+2. Identifique a porta COM do Arduino (verifique em `Serial.list()`)
+3. Atualize a porta em `processing/middleware.java` se necessário (linha: `porta = new Serial(this, "COM12", 115200);`)
+4. Execute o código Processing
+5. A aplicação React reconhecerá os comandos de teclado automaticamente
+
+### 📊 Fluxo de Dados
+
+1. **Usuário faz gesto** no ar próximo ao sensor
+2. **Arduino detecta** o movimento com o APDS9960
+3. **Microcontrolador envia** comando via serial (ex: "LEFT\n")
+4. **Processing recebe** o comando na porta serial
+5. **Processing simula** pressionamento da tecla correspondente
+6. **React recebe** o evento de teclado
+7. **Página do e-book** muda automaticamente
 
 ## 🎯 Fluxo de Navegação
 
@@ -148,7 +223,48 @@ ebook/
 - Renderização eficiente com React
 - Estilos otimizados com Tailwind CSS
 
-## 📝 Licença
+## � Troubleshooting - Arduino e Processing
+
+### Problemas Comuns
+
+#### ❌ "Port COM12 does not exist" em Processing
+**Solução:**
+1. Abra Arduino IDE e verifique a porta do Arduino em **Tools → Port**
+2. Atualize a porta em `processing/middleware.java` com o valor correto
+3. Certifique-se de que a porta está disponível (não em uso por outro programa)
+
+#### ❌ Arduino não detecta o sensor APDS9960
+**Solução:**
+1. Verifique as conexões I2C (SDA e SCL)
+2. Instale a biblioteca Adafruit APDS9960 via Arduino IDE: **Sketch → Include Library → Manage Libraries**
+3. Verifique se o endereço I2C é 0x39 (padrão)
+4. Use o exemplo "APDS9960_Gesture_Sensor" para testar
+
+#### ❌ Processing não recebe dados do Arduino
+**Solução:**
+1. Verifique a taxa de baud: deve ser **115200** em ambos (Arduino e Processing)
+2. Abra o Serial Monitor do Arduino IDE para confirmar se dados estão sendo enviados
+3. Certifique-se de que o Arduino está programado corretamente
+4. Verifique o cabo USB (alguns não são de dados, apenas de carga)
+
+#### ❌ E-book não responde aos gestos
+**Solução:**
+1. Verifique se Processing está rodando (deve mostrar "Aguardando gestos...")
+2. Confirme que as teclas estão sendo simuladas (teste manualmente com setas)
+3. Certifique-se de que o navegador ou aplicação está com o foco (e-book deve estar ativo)
+4. Verifique o console do Processing para mensagens de erro
+
+### 📋 Checklist de Configuração
+
+- [ ] Arduino IDE instalado com biblioteca Adafruit APDS9960
+- [ ] Processing IDE instalado
+- [ ] Arduino carregado com `hardware_arduino.ino`
+- [ ] Processing configurado com a porta COM correta
+- [ ] Taxa de baud em ambos definida como 115200
+- [ ] Cabo USB conectado ao Arduino
+- [ ] Sensor APDS9960 com conexões I2C corretas
+
+## �📝 Licença
 
 Este projeto está disponível sob a licença MIT.
 
