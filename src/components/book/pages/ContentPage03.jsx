@@ -20,7 +20,7 @@ function ContentPage03() {
             (A Fundação Lógica)
           </h2>
         <p className="m-0 max-w-[38ch] text-[clamp(0.95rem,1.5vw,1.02rem)] leading-[1.55] text-[#293015] text-justify">
-          <strong>Objetivo:</strong> Capacitar a analisar requisitos, projetar, implementar, testar, implantar, avaliar e manter sistemas computacionais.
+          <strong>Objetivo:</strong> Capacitar e analisar requisitos, projetar, implementar, testar, implantar, avaliar e manter sistemas computacionais.
         </p>
 
         <p className="m-0 max-w-[38ch] text-[clamp(0.95rem,1.5vw,1.02rem)] leading-[1.55] text-[#293015] text-justify">

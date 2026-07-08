@@ -1,6 +1,15 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import HTMLFlipBook from 'react-pageflip'
-import narracaoP1 from './assets/narracao_p1.m4a'
+import narracaoCapa from './assets/narracao_capa.ogg'
+import narracaoP1 from './assets/narracao_p1.ogg'
+import narracaoP2 from './assets/narracao_p2.ogg'
+import narracaoP3 from './assets/narracao_p3.ogg'
+import narracaoP4 from './assets/narracao_p4.ogg'
+import narracaoP5 from './assets/narracao_p5.ogg'
+import narracaoP6 from './assets/narracao_p6.ogg'
+import narracaoP7 from './assets/narracao_p7.ogg'
+import narracaoP8 from './assets/narracao_p8.ogg'
+import narracaoP9 from './assets/narracao_p9.ogg'
 import FlipPage from './components/book/FlipPage'
 import CoverPage from './components/book/pages/CoverPage'
 import NarrationPage from './components/book/pages/NarrationPage'
@@ -38,7 +47,16 @@ const pageSequence = [
 ]
 
 const narrationByPage = {
+  1: narracaoCapa,
   2: narracaoP1,
+  4: narracaoP2,
+  6: narracaoP3,
+  8: narracaoP4,
+  10: narracaoP5,
+  12: narracaoP6,
+  14: narracaoP7,
+  16: narracaoP8,
+  18: narracaoP9
 }
 
 const PAGE_ASPECT_RATIO = 720 / 1024
